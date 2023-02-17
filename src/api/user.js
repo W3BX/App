@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { userdetail, logoutuser } from "../store/slices/user"
 import { saveComment, emptyComment } from '../store/slices/userComments';
 
-const URl = process.env.REACT_APP_CONNECTION_KEY_LOCAL
+const URl = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_CONNECTION_KEY_GLOBAL : process.env.REACT_APP_CONNECTION_KEY_LOCAL
 const client = new axios.create({
     baseURL: URl,
     withCredentials: true,
@@ -16,7 +16,7 @@ const client = new axios.create({
 })
 
 export const UserLogin = async (data, navigate, dispatch) => {
-
+    
     const login = await client.post('/login', { data })
     let userdata = login.data
     if (!userdata.exits) {
@@ -81,26 +81,34 @@ export const removeUser = async (navigate, dispatch) => {
 }
 
 export const Comment = async (data, user, settextarea) => {
-
+   
     if (data == '') {
         toast.error('Please write a comment');
     } else {
-        let postData = { data }
-        let userName = ''
+        try {
 
-        if (!Object.keys(user).length) {
-            let randomstring = 'Anonymous'
+            let postData = { data }
+            let userName = ''
 
-            let randomnumber = Math.floor((Math.random() * 10) + 10)
-            let randomnstring = randomstring + randomnumber
-            userName = randomnstring
-        } else {
-            userName = user.name
+            if (!Object.keys(user).length) {
+                let randomstring = 'Anonymous'
+
+                let randomnumber = Math.floor((Math.random() * 10) + 10)
+                let randomnstring = randomstring + randomnumber
+                userName = randomnstring
+            } else {
+                userName = user.name
+            }
+
+            postData.user = userName
+            settextarea('')
+            return postData
+
+
+        } catch (err) {
+            console.log(err)
         }
 
-        postData.user = userName
-        settextarea('')
-        return postData
 
     }
 }

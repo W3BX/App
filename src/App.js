@@ -9,8 +9,14 @@ import { persistStore } from 'redux-persist';
 const App = () => {
 
   let persistor = persistStore(store);
+//restart the persistor
+// persistor.purge().then(() => {
+//   //Persisted state has been cleared
+// });
+
 
   return (
+
     <div>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor} >

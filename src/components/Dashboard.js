@@ -25,9 +25,7 @@ const Dashboard = () => {
     const [newMsgStatus, setnewMsgStatus] = useState(false)
     const [commnetsubmit, setcommnetsubmit] = useState(false)
     const [loading, setloading] = useState(false)
-    const user = useSelector((state) => state.user?.value)
     // const Socket = io('http://localhost:5000')
-
 
     useEffect(() => {
 
@@ -47,15 +45,13 @@ const Dashboard = () => {
     const submitText = async (e) => {
         e.preventDefault()
         if (Socket.connected) {
-            const postData = await Comment(textarea.trim(), user, settextarea)
+            const postData = await Comment(textarea.trim(), userdetail, settextarea)
             postData.id = Socket.id
             if (postData) {
                 Socket.emit('send_comment', postData)
             }
         }
     }
-
-
 
     useEffect(() => {
         Socket.on('send_saved_comments', (data) => {
@@ -85,6 +81,7 @@ const Dashboard = () => {
             setcommnetsubmit(false)
         }
     }, [commnetsubmit])
+
 
 
     return (
