@@ -13,3 +13,7 @@ various Collections were created for storing documnets to perform INSERT/FIND/UP
 ## `Node(Back-end)`
 
 A basic server was created to perform all backend operations. enabled with Mongoose for database connectivity , Socket.io for reatime comment system and many more
+
+## `GIF`
+
+![mygif](https://media.giphy.com/media/xTiTnet7xRv1GPTShi/giphy.gif)
