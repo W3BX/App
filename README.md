@@ -16,4 +16,4 @@ A basic server was created to perform all backend operations. enabled with Mongo
 
 ## `GIF`
 
-![mygif](https://media.giphy.com/media/xTiTnet7xRv1GPTShi/giphy.gif)
+![mygif](/public/1.gif)
